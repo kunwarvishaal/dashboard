@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Monthly Fleet Performance Summary</title>
+    <title>Fleet Performance Reports</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -11,12 +11,70 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
+        
+        /* Hide checkboxes */
+        #weekly-toggle, #monthly-toggle {
+            display: none;
+        }
+        
+        /* Report selector buttons */
+        .report-selector {
+            max-width: 1400px;
+            margin: 0 auto 20px auto;
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+        .report-btn {
+            padding: 15px 40px;
+            font-size: 16px;
+            font-weight: 600;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: white;
+            color: #64748b;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        .report-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        /* Active state for weekly button when weekly is checked */
+        #weekly-toggle:checked ~ .report-selector label[for="weekly-toggle"] {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Active state for monthly button when monthly is checked */
+        #monthly-toggle:checked ~ .report-selector label[for="monthly-toggle"] {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
+        
+        /* Hide both reports by default */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             background-color: white;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            display: none;
         }
+        
+        /* Show weekly report when weekly toggle is checked */
+        #weekly-toggle:checked ~ #weekly-report {
+            display: block;
+        }
+        
+        /* Show monthly report when monthly toggle is checked */
+        #monthly-toggle:checked ~ #monthly-report {
+            display: block;
+        }
+        
         .header {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
             color: white;
@@ -27,7 +85,7 @@
             margin: 0 0 10px 0;
             font-size: 32px;
         }
-        .month-info {
+        .period-info {
             margin: 0;
             font-size: 18px;
             opacity: 0.9;
@@ -231,14 +289,441 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <!-- Header -->
+    <!-- Hidden checkboxes for toggle control -->
+    <input type="checkbox" id="weekly-toggle" checked>
+    <input type="checkbox" id="monthly-toggle">
+
+    <div class="report-selector">
+        <label for="weekly-toggle" class="report-btn">📊 Weekly Report</label>
+        <label for="monthly-toggle" class="report-btn">📅 Monthly Report</label>
+    </div>
+
+    <!-- WEEKLY REPORT -->
+    <div class="container" id="weekly-report">
         <div class="header">
-            <h1>🚢 Monthly Fleet Performance Summary</h1>
-            <p class="month-info">October 2025 | Fleet Analytics Report</p>
+            <h1>🚢 Weekly Fleet Performance Summary</h1>
+            <p class="period-info">Week 44, 2025 (Oct 28 - Nov 3) | Fleet Analytics Report</p>
         </div>
 
-        <!-- Executive Summary -->
+        <div class="executive-summary">
+            <h2 class="summary-title">Executive Summary</h2>
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <p class="kpi-label">Total Days at Sea</p>
+                    <p class="kpi-value">52</p>
+                    <p class="kpi-comparison trend-up">
+                        <span>↑ 3 days</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Total Days in Port</p>
+                    <p class="kpi-value">4</p>
+                    <p class="kpi-comparison trend-down">
+                        <span>↓ 2 days</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Total Fleet Steaming Hours</p>
+                    <p class="kpi-value">1,248</p>
+                    <p class="kpi-comparison trend-up">
+                        <span>↑ 6.5%</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Total ME Consumption</p>
+                    <p class="kpi-value">485 MT</p>
+                    <p class="kpi-comparison trend-down">
+                        <span>↓ 2.8%</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Fleet Avg Speed</p>
+                    <p class="kpi-value">12.9 kts</p>
+                    <p class="kpi-comparison trend-up">
+                        <span>↑ 0.3 kts</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Avg CP Variance</p>
+                    <p class="kpi-value">+6.2%</p>
+                    <p class="kpi-comparison trend-up">
+                        <span>Improved</span> efficiency
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Fleet Avg SFOC</p>
+                    <p class="kpi-value">173.8 g/kwh</p>
+                    <p class="kpi-comparison trend-down">
+                        <span>↓ 1.2%</span> vs Week 43
+                    </p>
+                </div>
+                <div class="kpi-card">
+                    <p class="kpi-label">Underperformance Days</p>
+                    <p class="kpi-value">3</p>
+                    <p class="kpi-comparison trend-down">
+                        <span>↓ 40%</span> vs Week 43
+                    </p>
+                </div>
+            </div>
+
+            <div class="insights-box">
+                <h3>📊 Weekly Key Insights</h3>
+                <ul class="insights-list">
+                    <li><strong>Week Performance:</strong> Fleet achieved 6.2% positive variance this week, maintaining strong performance above Charter Party terms.</li>
+                    <li><strong>Operational Highlight:</strong> Hafnia Amber and Pearl continued their excellent performance streak with +12.5% and +10.8% variance respectively.</li>
+                    <li><strong>Efficiency Gain:</strong> Total steaming hours increased by 6.5% while fuel consumption decreased by 2.8%, indicating improved operational efficiency.</li>
+                    <li><strong>Weather Conditions:</strong> Favorable weather in Atlantic and Pacific routes contributed to smooth operations throughout the week.</li>
+                    <li><strong>Port Operations:</strong> Reduced port time (4 days vs 6 days last week) improved overall fleet utilization to 92.9%.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div>
+                    <h2 class="section-title">Vessel Performance Rankings</h2>
+                    <p class="section-subtitle">Ranked by average CP variance and overall efficiency</p>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Rank</th>
+                        <th>Vessel Name</th>
+                        <th>Days at Sea</th>
+                        <th>Days in Port</th>
+                        <th>Avg Speed</th>
+                        <th>ME Cons. (MT)</th>
+                        <th>Avg CP Variance</th>
+                        <th>SFOC (g/kwh)</th>
+                        <th>Performance Rating</th>
+                        <th>Trend</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td style="font-weight: bold; color: #059669;">1</td>
+                        <td class="vessel-name">Hafnia Amber</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td>11.8 kts</td>
+                        <td>72.3</td>
+                        <td style="color: #10b981; font-weight: 600;">+12.5%</td>
+                        <td>174.8</td>
+                        <td><span class="rating rating-excellent">Excellent</span></td>
+                        <td style="color: #10b981;">↑</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color: #059669;">2</td>
+                        <td class="vessel-name">Hafnia Pearl</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td>13.5 kts</td>
+                        <td>78.5</td>
+                        <td style="color: #10b981; font-weight: 600;">+10.8%</td>
+                        <td>167.2</td>
+                        <td><span class="rating rating-excellent">Excellent</span></td>
+                        <td style="color: #10b981;">↑</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color: #0891b2;">3</td>
+                        <td class="vessel-name">Hafnia Sapphire</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td>13.0 kts</td>
+                        <td>74.8</td>
+                        <td style="color: #10b981; font-weight: 600;">+8.5%</td>
+                        <td>175.2</td>
+                        <td><span class="rating rating-good">Good</span></td>
+                        <td style="color: #10b981;">↑</td>
+                    </tr>
+                    <tr>
+                        <td>4</td>
+                        <td class="vessel-name">Hafnia Almandine</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td>12.5 kts</td>
+                        <td>68.2</td>
+                        <td style="color: #10b981; font-weight: 600;">+7.2%</td>
+                        <td>171.5</td>
+                        <td><span class="rating rating-good">Good</span></td>
+                        <td style="color: #64748b;">→</td>
+                    </tr>
+                    <tr>
+                        <td>5</td>
+                        <td class="vessel-name">Hafnia Emerald</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td>13.8 kts</td>
+                        <td>82.5</td>
+                        <td style="color: #10b981; font-weight: 600;">+5.5%</td>
+                        <td>178.8</td>
+                        <td><span class="rating rating-good">Good</span></td>
+                        <td style="color: #64748b;">→</td>
+                    </tr>
+                    <tr>
+                        <td>6</td>
+                        <td class="vessel-name">Hafnia Aragonite</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td>14.0 kts</td>
+                        <td>76.8</td>
+                        <td style="color: #f59e0b; font-weight: 600;">+3.2%</td>
+                        <td>173.8</td>
+                        <td><span class="rating rating-average">Average</span></td>
+                        <td style="color: #10b981;">↑</td>
+                    </tr>
+                    <tr>
+                        <td>7</td>
+                        <td class="vessel-name">Hafnia Ruby</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td>12.3 kts</td>
+                        <td>65.5</td>
+                        <td style="color: #f59e0b; font-weight: 600;">+2.1%</td>
+                        <td>180.5</td>
+                        <td><span class="rating rating-average">Average</span></td>
+                        <td style="color: #64748b;">→</td>
+                    </tr>
+                    <tr>
+                        <td style="font-weight: bold; color: #dc2626;">8</td>
+                        <td class="vessel-name">Hafnia Diamond</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td>13.2 kts</td>
+                        <td>71.8</td>
+                        <td style="color: #ef4444; font-weight: 600;">-1.5%</td>
+                        <td>184.2</td>
+                        <td><span class="rating rating-poor">Needs Attention</span></td>
+                        <td style="color: #ef4444;">↓</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">⚓ Port vs Sea Time Analysis</h2>
+            <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 20px;">
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #3b82f6;">
+                        <h4 style="margin: 0 0 10px 0; color: #1e3a8a;">Most Active Vessels</h4>
+                        <p style="margin: 0; font-size: 20px; font-weight: bold; color: #1e293b;">Amber, Pearl, Sapphire, Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">7 days at sea | 0 days in port</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #f59e0b;">
+                        <h4 style="margin: 0 0 10px 0; color: #92400e;">Most Port Time</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Diamond</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">5 days at sea | 2 days in port</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #10b981;">
+                        <h4 style="margin: 0 0 10px 0; color: #065f46;">Fleet Utilization</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">92.9%</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">52 sea days / 56 total days</p>
+                    </div>
+                </div>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vessel Name</th>
+                        <th>Days at Sea</th>
+                        <th>Days in Port</th>
+                        <th>Utilization %</th>
+                        <th>Current Route</th>
+                        <th>Port Calls</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="vessel-name">Hafnia Amber</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td style="color: #10b981; font-weight: 600;">100%</td>
+                        <td>China - Taiwan</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Pearl</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td style="color: #10b981; font-weight: 600;">100%</td>
+                        <td>Houston - Antwerp</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Sapphire</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td style="color: #10b981; font-weight: 600;">100%</td>
+                        <td>Dubai - Singapore</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Emerald</td>
+                        <td>7</td>
+                        <td>0</td>
+                        <td style="color: #10b981; font-weight: 600;">100%</td>
+                        <td>Singapore - Rotterdam</td>
+                        <td>0</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Almandine</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td style="color: #10b981; font-weight: 600;">85.7%</td>
+                        <td>Argentina - Europe</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Aragonite</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td style="color: #10b981; font-weight: 600;">85.7%</td>
+                        <td>Spain - Asia</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Ruby</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td style="color: #10b981; font-weight: 600;">85.7%</td>
+                        <td>Middle East - Asia</td>
+                        <td>1</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Diamond</td>
+                        <td>5</td>
+                        <td>2</td>
+                        <td style="color: #f59e0b; font-weight: 600;">71.4%</td>
+                        <td>Various</td>
+                        <td>2</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">Detailed Weekly Metrics by Vessel</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Vessel Name</th>
+                        <th>Total ME (MT)</th>
+                        <th>Total AE (MT)</th>
+                        <th>Boiler (MT)</th>
+                        <th>Total FO (MT)</th>
+                        <th>Avg Slip %</th>
+                        <th>ME FO (Tons/Mile)</th>
+                        <th>Best Day Variance</th>
+                        <th>Worst Day Variance</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="vessel-name">Hafnia Amber</td>
+                        <td>72.3</td>
+                        <td>19.8</td>
+                        <td>8.5</td>
+                        <td>100.6</td>
+                        <td>12.3%</td>
+                        <td>0.054</td>
+                        <td style="color: #10b981;">+16.2%</td>
+                        <td style="color: #10b981;">+9.5%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Pearl</td>
+                        <td>78.5</td>
+                        <td>22.1</td>
+                        <td>9.5</td>
+                        <td>110.1</td>
+                        <td>13.0%</td>
+                        <td>0.051</td>
+                        <td style="color: #10b981;">+14.8%</td>
+                        <td style="color: #10b981;">+7.2%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Sapphire</td>
+                        <td>74.8</td>
+                        <td>21.2</td>
+                        <td>9.0</td>
+                        <td>105.0</td>
+                        <td>12.5%</td>
+                        <td>0.055</td>
+                        <td style="color: #10b981;">+11.5%</td>
+                        <td style="color: #10b981;">+5.8%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Almandine</td>
+                        <td>68.2</td>
+                        <td>18.5</td>
+                        <td>7.8</td>
+                        <td>94.5</td>
+                        <td>13.1%</td>
+                        <td>0.053</td>
+                        <td style="color: #10b981;">+10.2%</td>
+                        <td style="color: #10b981;">+4.5%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Emerald</td>
+                        <td>82.5</td>
+                        <td>23.8</td>
+                        <td>10.2</td>
+                        <td>116.5</td>
+                        <td>13.4%</td>
+                        <td>0.053</td>
+                        <td style="color: #10b981;">+8.8%</td>
+                        <td style="color: #10b981;">+2.5%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Aragonite</td>
+                        <td>76.8</td>
+                        <td>22.5</td>
+                        <td>9.6</td>
+                        <td>108.9</td>
+                        <td>8.8%</td>
+                        <td>0.058</td>
+                        <td style="color: #10b981;">+6.5%</td>
+                        <td style="color: #f59e0b;">+0.2%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Ruby</td>
+                        <td>65.5</td>
+                        <td>17.8</td>
+                        <td>7.5</td>
+                        <td>90.8</td>
+                        <td>10.2%</td>
+                        <td>0.057</td>
+                        <td style="color: #10b981;">+5.2%</td>
+                        <td style="color: #ef4444;">-1.5%</td>
+                    </tr>
+                    <tr>
+                        <td class="vessel-name">Hafnia Diamond</td>
+                        <td>71.8</td>
+                        <td>20.5</td>
+                        <td>8.8</td>
+                        <td>101.1</td>
+                        <td>11.0%</td>
+                        <td>0.061</td>
+                        <td style="color: #10b981;">+2.5%</td>
+                        <td style="color: #ef4444;">-4.2%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Weekly Fleet Performance Summary | Generated on Nov 03, 2025</p>
+            <p>Confidential - For Internal Use Only</p>
+        </div>
+    </div>
+
+    <!-- MONTHLY REPORT -->
+    <div class="container" id="monthly-report">
+        <div class="header">
+            <h1>🚢 Monthly Fleet Performance Summary</h1>
+            <p class="period-info">October 2025 | Fleet Analytics Report</p>
+        </div>
+
         <div class="executive-summary">
             <h2 class="summary-title">Executive Summary</h2>
             <div class="kpi-grid">
@@ -301,13 +786,15 @@
             </div>
 
             <div class="insights-box">
-                <h3>📊 Key Insights</h3>
+                <h3>📊 Monthly Key Insights</h3>
                 <ul class="insights-list">
                     <li><strong>Overall Performance:</strong> Fleet performance improved significantly with 5.8% better efficiency than Charter Party terms, saving approximately 127 MT of fuel.</li>
                     <li><strong>Best Month:</strong> October marked the best monthly performance in Q4 2025 with reduced underperformance incidents by 35%.</li>
                     <li><strong>Operational Efficiency:</strong> Total days at sea increased by 12 days while port days decreased by 6 days, improving overall fleet utilization by 8%.</li>
                     <li><strong>Weather Impact:</strong> Favorable weather conditions in the Pacific region contributed to 12% of the performance improvement.</li>
                     <li><strong>Technical Excellence:</strong> Three vessels (Hafnia Amber, Pearl, Almandine) maintained consistent >8% positive variance throughout the month.</li>
+                    <li><strong>Fuel Efficiency:</strong> Despite increased steaming hours, total ME consumption decreased by 3.5%, demonstrating improved operational practices.</li>
+                    <li><strong>SFOC Improvement:</strong> Fleet average SFOC decreased by 1.8%, indicating better engine performance and maintenance practices.</li>
                 </ul>
             </div>
 
@@ -334,7 +821,6 @@
             </div>
         </div>
 
-        <!-- Vessel Performance Rankings -->
         <div class="section">
             <div class="section-header">
                 <div>
@@ -458,7 +944,6 @@
             </table>
         </div>
 
-        <!-- Port vs Sea Analysis -->
         <div class="section">
             <h2 class="section-title">⚓ Port vs Sea Time Analysis</h2>
             <div style="background: #f8fafc; padding: 20px; border-radius: 8px; margin: 20px 0;">
@@ -560,7 +1045,6 @@
             </table>
         </div>
 
-        <!-- Monthly Trends Chart Placeholder -->
         <div class="section">
             <h2 class="section-title">Monthly Performance Trends</h2>
             <div class="chart-placeholder">
@@ -569,7 +1053,6 @@
             </div>
         </div>
 
-        <!-- Detailed Performance Metrics -->
         <div class="section">
             <h2 class="section-title">Detailed Monthly Metrics by Vessel</h2>
             <table>
@@ -672,4 +1155,17 @@
                         <td>434.8</td>
                         <td>11.2%</td>
                         <td>0.062</td>
-                        <td style="color: #10b981;">+3
+                        <td style="color: #10b981;">+3.2%</td>
+                        <td style="color: #ef4444;">-5.8%</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <div class="footer">
+            <p>Monthly Fleet Performance Summary | Generated on Nov 03, 2025</p>
+            <p>Confidential - For Internal Use Only</p>
+        </div>
+    </div>
+</body>
+</html>
