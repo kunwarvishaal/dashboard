@@ -12,8 +12,8 @@
             background-color: #f4f4f4;
         }
         
-        /* Hide checkboxes */
-        #weekly-toggle, #monthly-toggle {
+        /* Hide radio buttons */
+        input[name="report-toggle"] {
             display: none;
         }
         
@@ -289,9 +289,9 @@
     </style>
 </head>
 <body>
-    <!-- Hidden checkboxes for toggle control -->
-    <input type="checkbox" id="weekly-toggle" checked>
-    <input type="checkbox" id="monthly-toggle">
+    <!-- Hidden radio buttons for toggle control -->
+    <input type="radio" name="report-toggle" id="weekly-toggle" checked>
+    <input type="radio" name="report-toggle" id="monthly-toggle">
 
     <div class="report-selector">
         <label for="weekly-toggle" class="report-btn">📊 Weekly Report</label>
