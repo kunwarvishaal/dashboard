@@ -11,13 +11,6 @@
             padding: 20px;
             background-color: #f4f4f4;
         }
-        
-        /* Hide radio buttons */
-        input[name="report-toggle"] {
-            display: none;
-        }
-        
-        /* Report selector buttons */
         .report-selector {
             max-width: 1400px;
             margin: 0 auto 20px auto;
@@ -37,26 +30,15 @@
             color: #64748b;
             box-shadow: 0 2px 6px rgba(0,0,0,0.1);
         }
+        .report-btn.active {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
+            color: white;
+            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
+        }
         .report-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 4px 12px rgba(0,0,0,0.15);
         }
-        
-        /* Active state for weekly button when weekly is checked */
-        #weekly-toggle:checked ~ .report-selector label[for="weekly-toggle"] {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-        
-        /* Active state for monthly button when monthly is checked */
-        #monthly-toggle:checked ~ .report-selector label[for="monthly-toggle"] {
-            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%);
-            color: white;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.4);
-        }
-        
-        /* Hide both reports by default */
         .container {
             max-width: 1400px;
             margin: 0 auto;
@@ -64,17 +46,9 @@
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
             display: none;
         }
-        
-        /* Show weekly report when weekly toggle is checked */
-        #weekly-toggle:checked ~ #weekly-report {
+        .container.active {
             display: block;
         }
-        
-        /* Show monthly report when monthly toggle is checked */
-        #monthly-toggle:checked ~ #monthly-report {
-            display: block;
-        }
-        
         .header {
             background: linear-gradient(135deg, #0f172a 0%, #1e3a8a 50%, #3b82f6 100%);
             color: white;
@@ -289,17 +263,13 @@
     </style>
 </head>
 <body>
-    <!-- Hidden radio buttons for toggle control -->
-    <input type="radio" name="report-toggle" id="weekly-toggle" checked>
-    <input type="radio" name="report-toggle" id="monthly-toggle">
-
     <div class="report-selector">
-        <label for="weekly-toggle" class="report-btn">📊 Weekly Report</label>
-        <label for="monthly-toggle" class="report-btn">📅 Monthly Report</label>
+        <button class="report-btn active" onclick="showReport('weekly')">📊 Weekly Report</button>
+        <button class="report-btn" onclick="showReport('monthly')">📅 Monthly Report</button>
     </div>
 
     <!-- WEEKLY REPORT -->
-    <div class="container" id="weekly-report">
+    <div class="container active" id="weekly-report">
         <div class="header">
             <h1>🚢 Weekly Fleet Performance Summary</h1>
             <p class="period-info">Week 44, 2025 (Oct 28 - Nov 3) | Fleet Analytics Report</p>
@@ -520,6 +490,21 @@
                         <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">92.9%</p>
                         <p style="margin: 5px 0 0 0; color: #64748b;">52 sea days / 56 total days</p>
                     </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #dc2626;">
+                        <h4 style="margin: 0 0 10px 0; color: #991b1b;">Vessels with Max ME Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">82.5 MT consumption</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                        <h4 style="margin: 0 0 10px 0; color: #5b21b6;">Vessels with Max AE RH/Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">168 RH / 23.8 MT</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #ea580c;">
+                        <h4 style="margin: 0 0 10px 0; color: #9a3412;">Vessels with Max BLR RH/Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">72 RH / 10.2 MT</p>
+                    </div>
                 </div>
             </div>
             <table>
@@ -609,8 +594,8 @@
                     <tr>
                         <th>Vessel Name</th>
                         <th>Total ME (MT)</th>
-                        <th>Total AE (MT)</th>
-                        <th>Boiler (MT)</th>
+                        <th>Total AE (RH/MT)</th>
+                        <th>Boiler (RH/MT)</th>
                         <th>Total FO (MT)</th>
                         <th>Avg Slip %</th>
                         <th>ME FO (Tons/Mile)</th>
@@ -622,8 +607,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Amber</td>
                         <td>72.3</td>
-                        <td>19.8</td>
-                        <td>8.5</td>
+                        <td>140 / 19.8</td>
+                        <td>60 / 8.5</td>
                         <td>100.6</td>
                         <td>12.3%</td>
                         <td>0.054</td>
@@ -633,8 +618,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Pearl</td>
                         <td>78.5</td>
-                        <td>22.1</td>
-                        <td>9.5</td>
+                        <td>156 / 22.1</td>
+                        <td>67 / 9.5</td>
                         <td>110.1</td>
                         <td>13.0%</td>
                         <td>0.051</td>
@@ -644,8 +629,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Sapphire</td>
                         <td>74.8</td>
-                        <td>21.2</td>
-                        <td>9.0</td>
+                        <td>149 / 21.2</td>
+                        <td>63 / 9.0</td>
                         <td>105.0</td>
                         <td>12.5%</td>
                         <td>0.055</td>
@@ -655,8 +640,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Almandine</td>
                         <td>68.2</td>
-                        <td>18.5</td>
-                        <td>7.8</td>
+                        <td>131 / 18.5</td>
+                        <td>55 / 7.8</td>
                         <td>94.5</td>
                         <td>13.1%</td>
                         <td>0.053</td>
@@ -666,8 +651,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Emerald</td>
                         <td>82.5</td>
-                        <td>23.8</td>
-                        <td>10.2</td>
+                        <td>168 / 23.8</td>
+                        <td>72 / 10.2</td>
                         <td>116.5</td>
                         <td>13.4%</td>
                         <td>0.053</td>
@@ -677,8 +662,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Aragonite</td>
                         <td>76.8</td>
-                        <td>22.5</td>
-                        <td>9.6</td>
+                        <td>159 / 22.5</td>
+                        <td>68 / 9.6</td>
                         <td>108.9</td>
                         <td>8.8%</td>
                         <td>0.058</td>
@@ -688,8 +673,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Ruby</td>
                         <td>65.5</td>
-                        <td>17.8</td>
-                        <td>7.5</td>
+                        <td>125 / 17.8</td>
+                        <td>53 / 7.5</td>
                         <td>90.8</td>
                         <td>10.2%</td>
                         <td>0.057</td>
@@ -699,8 +684,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Diamond</td>
                         <td>71.8</td>
-                        <td>20.5</td>
-                        <td>8.8</td>
+                        <td>145 / 20.5</td>
+                        <td>62 / 8.8</td>
                         <td>101.1</td>
                         <td>11.0%</td>
                         <td>0.061</td>
@@ -963,6 +948,21 @@
                         <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">91.9%</p>
                         <p style="margin: 5px 0 0 0; color: #64748b;">228 sea days / 248 total days</p>
                     </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #dc2626;">
+                        <h4 style="margin: 0 0 10px 0; color: #991b1b;">Vessels with Max ME Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">334.2 MT consumption</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #7c3aed;">
+                        <h4 style="margin: 0 0 10px 0; color: #5b21b6;">Vessels with Max AE RH/Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">684 RH / 96.8 MT</p>
+                    </div>
+                    <div style="background: white; padding: 20px; border-radius: 8px; border-left: 4px solid #ea580c;">
+                        <h4 style="margin: 0 0 10px 0; color: #9a3412;">Vessels with Max BLR RH/Cons.</h4>
+                        <p style="margin: 0; font-size: 24px; font-weight: bold; color: #1e293b;">Hafnia Emerald</p>
+                        <p style="margin: 5px 0 0 0; color: #64748b;">291 RH / 41.2 MT</p>
+                    </div>
                 </div>
             </div>
             <table>
@@ -1060,8 +1060,8 @@
                     <tr>
                         <th>Vessel Name</th>
                         <th>Total ME (MT)</th>
-                        <th>Total AE (MT)</th>
-                        <th>Boiler (MT)</th>
+                        <th>Total AE (RH/MT)</th>
+                        <th>Boiler (RH/MT)</th>
                         <th>Total FO (MT)</th>
                         <th>Avg Slip %</th>
                         <th>ME FO (Tons/Mile)</th>
@@ -1073,8 +1073,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Amber</td>
                         <td>298.5</td>
-                        <td>82.5</td>
-                        <td>35.2</td>
+                        <td>583 / 82.5</td>
+                        <td>248 / 35.2</td>
                         <td>416.2</td>
                         <td>12.5%</td>
                         <td>0.055</td>
@@ -1084,8 +1084,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Pearl</td>
                         <td>312.8</td>
-                        <td>89.3</td>
-                        <td>38.5</td>
+                        <td>631 / 89.3</td>
+                        <td>272 / 38.5</td>
                         <td>440.6</td>
                         <td>13.1%</td>
                         <td>0.052</td>
@@ -1095,8 +1095,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Almandine</td>
                         <td>285.4</td>
-                        <td>78.2</td>
-                        <td>32.8</td>
+                        <td>553 / 78.2</td>
+                        <td>232 / 32.8</td>
                         <td>396.4</td>
                         <td>13.2%</td>
                         <td>0.053</td>
@@ -1106,8 +1106,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Sapphire</td>
                         <td>295.7</td>
-                        <td>85.6</td>
-                        <td>36.1</td>
+                        <td>605 / 85.6</td>
+                        <td>255 / 36.1</td>
                         <td>417.4</td>
                         <td>12.8%</td>
                         <td>0.056</td>
@@ -1117,8 +1117,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Emerald</td>
                         <td>334.2</td>
-                        <td>96.8</td>
-                        <td>41.2</td>
+                        <td>684 / 96.8</td>
+                        <td>291 / 41.2</td>
                         <td>472.2</td>
                         <td>13.5%</td>
                         <td>0.054</td>
@@ -1128,8 +1128,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Aragonite</td>
                         <td>318.6</td>
-                        <td>92.1</td>
-                        <td>39.5</td>
+                        <td>651 / 92.1</td>
+                        <td>279 / 39.5</td>
                         <td>450.2</td>
                         <td>9.1%</td>
                         <td>0.059</td>
@@ -1139,8 +1139,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Ruby</td>
                         <td>276.3</td>
-                        <td>75.8</td>
-                        <td>31.5</td>
+                        <td>536 / 75.8</td>
+                        <td>223 / 31.5</td>
                         <td>383.6</td>
                         <td>10.5%</td>
                         <td>0.058</td>
@@ -1150,8 +1150,8 @@
                     <tr>
                         <td class="vessel-name">Hafnia Diamond</td>
                         <td>308.5</td>
-                        <td>88.5</td>
-                        <td>37.8</td>
+                        <td>625 / 88.5</td>
+                        <td>267 / 37.8</td>
                         <td>434.8</td>
                         <td>11.2%</td>
                         <td>0.062</td>
@@ -1167,5 +1167,28 @@
             <p>Confidential - For Internal Use Only</p>
         </div>
     </div>
+
+    <script>
+        function showReport(reportType) {
+            // Hide all reports
+            document.querySelectorAll('.container').forEach(container => {
+                container.classList.remove('active');
+            });
+            
+            // Remove active class from all buttons
+            document.querySelectorAll('.report-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            
+            // Show selected report
+            if (reportType === 'weekly') {
+                document.getElementById('weekly-report').classList.add('active');
+                document.querySelectorAll('.report-btn')[0].classList.add('active');
+            } else {
+                document.getElementById('monthly-report').classList.add('active');
+                document.querySelectorAll('.report-btn')[1].classList.add('active');
+            }
+        }
+    </script>
 </body>
 </html>
